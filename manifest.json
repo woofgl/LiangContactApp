@@ -1,0 +1,8 @@
+{
+	"name" : "iPadContacts",
+	"description" : "iPadContacts",
+	"version" : "0.1",
+	"browser_action" : {
+		"popup" : "index.html"
+	}
+}

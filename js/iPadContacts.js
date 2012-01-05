@@ -80,21 +80,26 @@ contact =  {};
     // --------- UI ContactList --------- //
     function ContactList() {
     }
-    ContactList.prototype.create = function (data, config) {
+
+    function refreshData() {
         var data = [
-            {name:"test",id:1},
-            {name:"test",id:2},
-            {name:"test",id:3},
-            {name:"test",id:4},
-            {name:"test",id:5}
+            {name:"test", id:1},
+            {name:"test", id:2},
+            {name:"test", id:3},
+            {name:"test", id:4},
+            {name:"test", id:5}
         ];
 //        var html =  brite.dm.list("Contacts").done(function(contactList) {
 //            return   $("#tmpl-ContactList").render(contacts:contactList);
 //
 //        });
-        var html = $("#tmpl-ContactList").render({contacts: data});
+        var html = $("#tmpl-ContactList").render({contacts:data});
         var $e = $(html);
         return $e;
+    }
+
+    ContactList.prototype.create = function (data, config) {
+        return refreshData();
     };
 
     ContactList.prototype.init = function (data, config) {
@@ -102,6 +107,23 @@ contact =  {};
     };
 
     ContactList.prototype.postDisplay = function (data, config) {
+         var $e = this.$element;
+
+         $e.delegate(".new","click",function(){
+             console.log("create");
+             var name = "test";
+             brite.dm.create("Contact", {
+                 name : name
+             }).done(function() {
+                     refreshData();
+                 });
+         });
+         $e.delegate(".delete","click",function(){
+             console.log("delete");
+             brite.dm.remote("Contact", 1).done(function() {
+                     refreshData();
+                 });
+         });
 
     };
     // --------- /UI ContactList --------- //

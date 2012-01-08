@@ -1,110 +1,161 @@
-body {
+body *{
 	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	margin: 0;
 	padding: 0;
+
+}
+
+.Workspace {
+  background-color: #94a3ae;
+    width: 1000px;
+    border: 1px #c1c5ce;
 }
 
 
-.iPadContactsList ul {
+ul {
 	list-style: none;
 	margin: 0;
 	padding: 0
 }
 
-.iPadContactsListLeft {
-	width: 330px;
-	background: #f3f5f7;
-	float: left;
-	height: 600px;
-	overflow: hidden
+/*-------------------HeaderBar------------------*/
+#HeaderBar {
+    background: -webkit-gradient(linear, left top, left bottom, from(#323232), to(black));
+    padding-top: 10px;
+    height: 35px;
+}
+#HeaderBar ul , #headerbar li {
+    display: block;
+    height: 25px;
+    position: relative;
+    text-align: center;
 }
 
-.iPadContactsListHeader {
-	width: 100%;
-	height: 42px;
-	color: #fff;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#f3f5f7),
-		to(#a8adba) );
-	margin-top: 0;
-	position: relative;
-	text-align: center;
-	border-bottom: 1px solid #838a9a;
-	line-height: 42px
+#HeaderBar ul{
+    -webkit-border-radius: 11px;
+    color: #fff8dc;
+    border: 1px #1B1B1B solid ;
+    background: -webkit-gradient(linear, left top, left bottom, from(#94a3ae), to(black));
+    width: 400px;
+    position:relative;
+    left: 50%;
+    margin-left: -200px;
 }
 
-.iPadContactsList {
-	width: 100%;
-	background: #fff;
-	overflow: auto;
-	height: 677px
-}
-
-.arrow {
-	width: 58px;
-	height: 28px;
-	border: 1px solid #878787;
-	border-radius: 5px;
-	line-height: 28px;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#dcdee0),
-		color-stop(0.5, #c1c5ce), color-stop(0.51, #b2b6c0), to(#a8adba) );
-	position: absolute;
-	top: 6px;
-	font-size: 12px;
-	font-weight: bold;
-	cursor: pointer
-}
-
-.arrow:hover {
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#b1bcc4),
-		color-stop(0.5, #a3acb3), color-stop(0.51, #8c9499), to(#787c7f) );
-}
-
-.new {
-	left: 5px;
-}
-
-.delete {
-	right: 5px
-}
-
-.iPadContactsListHeader h3 {
-	line-height: 42px;
-	font-size: 16px;
-	margin: 0;
-	padding: 0
-}
-
-.iPadContactsList li {
-    margin-top: 15px;
+#HeaderBar ul.contactNavigation li{
+    margin-top: 2px;
     margin-left: 10px;
-	line-height: 25px;
+    float: left;
+    color: #fff8dc;
+    border: 1px white;
+    width:120px;
+    background: -webkit-gradient(linear, left top, left bottom, from(#94a3ae), to(black));
+}
+/*-------------------/HeaderBar------------------*/
+
+/*-----------ContactList Component css----------*/
+
+
+.iPadContactsListLeft  {
+    width: 300px;
+    background: #f3f5f7;
+    float: left;
+    height: 600px;
+    overflow: hidden
+}
+
+.iPadContactsListLeft .iPadContactsListHeader {
+    width: 100%;
+    height: 42px;
+    color: #fff;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f3f5f7),
+    to(#a8adba) );
+    margin-top: 0;
+    position: relative;
+    text-align: center;
+    border-bottom: 1px solid #838a9a;
+    line-height: 42px
+}
+
+.iPadContactsListLeft .iPadContactsList {
+    width: 100%;
+    background: #fff;
+    overflow: auto;
+    height: 677px
+}
+
+.iPadContactsListLeft .arrow {
+    width: 58px;
+    height: 28px;
+    border: 1px solid #878787;
+    border-radius: 5px;
+    line-height: 28px;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#dcdee0),
+    color-stop(0.5, #c1c5ce), color-stop(0.51, #b2b6c0), to(#a8adba) );
+    position: absolute;
+    top: 6px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer
+}
+
+.iPadContactsListLeft .arrow:hover {
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#b1bcc4),
+    color-stop(0.5, #a3acb3), color-stop(0.51, #8c9499), to(#787c7f) );
+}
+
+.iPadContactsListLeft .new {
+    left: 5px;
+}
+
+.iPadContactsListLeft .delete {
+    right: 5px
+}
+
+.iPadContactsListLeft .iPadContactsListHeader h3 {
+    line-height: 42px;
+    font-size: 16px;
+    margin: 0;
+    padding: 0
+}
+
+.iPadContactsListLeft .iPadContactsList li {
+    margin-top: 2px;
+    margin-left: 2px;
+	line-height: 35px;
 	border-bottom: 1px solid #e0e0e0;
 	position: relative;
 	padding-left: 50px;
-    background: url("../images/face.png") no-repeat bottom;
-}
+    background: url("../images/face.png") no-repeat center left ;
+} selected
 
-.iPadContactsList li:last-of-type {
+
+
+.iPadContactsListLeft .iPadContactsList li:last-of-type {
 	border-bottom: none
 }
 
-.iPadContactsList li span {
+.iPadContactsListLeft .iPadContactsList li span {
 	display: block;
 	position: absolute
 }
 
-.iPadContactsList li:hover,.iPadContactsList li.on {
+.iPadContactsListLeft .iPadContactsList li:hover,.iPadContactsList li.on {
 	/*background-image: -webkit-gradient(linear, left top, left bottom, from(#f4f4f4), to(#d1d1d1) );*/
     background-color: #a8adba;;
 }
 
-span.photo {
+.iPadContactsListLeft .iPadContactsList ul li.selected {
+    background-color: #e6e6e6;
+}
+
+.iPadContactsListLeft span.photo {
 	left: 10px;
 	top: 7px;
     /*background-image: url("../images/face.png");*/
 }
 
-.star {
+.iPadContactsListLeft .star {
 	width: 24px;
 	height: 24px;
 	background: url(../images/star.png) no-repeat;
@@ -112,15 +163,17 @@ span.photo {
 	top: 9px
 }
 
-.star.on {
+.iPadContactsListLeft .star.on {
 	background: url(../images/star-light.png) no-repeat;
 }
-.star:hover {
+.iPadContactsListLeft .star:hover {
 	background: url(../images/star-light.png) no-repeat;
 }
 
+/*-----------/ContactList Component css----------*/
+
 .iPadContactsRight {
-	margin-left: 330px;
+	margin-left: 300px;
 	border-left: 1px solid #9d9d9d;
 	background: #d5d8de;
 	height: 600px

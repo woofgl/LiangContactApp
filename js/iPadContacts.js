@@ -103,9 +103,8 @@ var contactApp =  {};
 
             });
             console.log("show contents");
-            console.log(html);
             $e.find(".DataList").html(html);
-        }
+        };
 
         showContacts();
 
@@ -127,7 +126,6 @@ var contactApp =  {};
          });
 
         $e.delegate(".star", "click", function(){
-            console.log(this);
             $(this).toggleClass("on");
             return false;
 
@@ -140,8 +138,9 @@ var contactApp =  {};
         });
 
         $e.delegate("li", "dblclick", function(){
+            console.log("dblclick");
             var $li = $(this);
-            $li.html($("#tmpl-CreateContact").render());
+            $li.html($("#tmpl-EditContact").render());
             var name = $li.attr("data-obj_name");
             var id = $li.attr("data-obj_id");
             $li.find("input").val(name);
@@ -150,6 +149,10 @@ var contactApp =  {};
             $(this).delegate(".save", "click",function(){
                 console.log("update")
                 brite.dm.update("Contact",id, {name:$li.find("input").val()});
+                showContacts();
+            });
+            $(this).delegate(".cancel", "click",function(){
+                console.log("cancel")
                 showContacts();
             });
             return false;

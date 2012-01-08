@@ -339,7 +339,6 @@ function buildTmplFn( markup ) {
 					"__.push('";
 			}) +
 		"');}return __;";
-    console.log(code);
 	return new Function( "$","$view", code );
 }
 

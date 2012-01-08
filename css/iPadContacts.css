@@ -77,11 +77,11 @@ body {
 .iPadContactsList li {
     margin-top: 15px;
     margin-left: 10px;
-	line-height: 45px;
+	line-height: 25px;
 	border-bottom: 1px solid #e0e0e0;
 	position: relative;
 	padding-left: 50px;
-    background: url("../images/face.png") no-repeat;
+    background: url("../images/face.png") no-repeat bottom;
 }
 
 .iPadContactsList li:last-of-type {

@@ -3,7 +3,7 @@
                 parent: ".iPadContactsListLeft"
             },
             function(){
-                return new contact.ContactList();
+                return new contactApp.ContactList();
             });
 </script>
 <script id="tmpl-ContactList" type="text/html">
@@ -14,12 +14,24 @@
             <div class="delete arrow">Delete</div>
         </div>
         <div class="iPadContactsList">
-            <ul>
-                {{if contacts.length > 0}}
-                {{each contacts }}
-                <li data-obj_type="Contact" data-obj_id="${id}">${name}<span class="star"></span></li>
-                {{/each}}
-                {{/if}}
-            </ul>
+            <div id="CreateContact" style="display: none"></div>
+            <div class="DataList"></div>
+
         </div>
+</script>
+
+<script id="tmpl-CreateContact" type="text/html">
+        <label>Name:</label>
+        <input type="text" name="name"/>
+        <button class="button save" value="save">save</button>
+</script>
+
+<script id="tmpl-ContactList-Part" type="text/html">
+    <ul>
+        {{if contacts.length > 0}}
+        {{each contacts }}
+        <li data-obj_type="Contact" data-obj_id="${id}" data-obj_name="${name}">${name}<span class="star"></span></li>
+        {{/each}}
+        {{/if}}
+    </ul>
 </script>

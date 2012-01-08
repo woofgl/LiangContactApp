@@ -2,11 +2,9 @@
     brite.registerDao("Contact", new brite.dao.SimpleRelDao([], {}));
 })(jQuery);
 
-contact =  {};
-
+var contactApp =  {};
+// --------- UI Workspace --------- //
 (function($) {
-
-    // --------- UI Workspace --------- //
     function Workspace() { };
     Workspace.prototype.create = function(data,config){
         var html = $("#tmpl-Workspace").render();
@@ -24,16 +22,16 @@ contact =  {};
         brite.display("ContactHome");
 
     };
-    contact.Workspace = Workspace;
-    // --------- /UI Workspace --------- //
-})(jQuery);
+    contactApp.Workspace = Workspace;
 
+})(jQuery);
+// --------- /UI Workspace --------- //
+
+// --------- UI HeaderBar --------- //
 (function ($) {
-    // --------- UI HeaderBar --------- //
     function HeaderBar() {
     }
 
-    ;
     HeaderBar.prototype.create = function (data, config) {
         var html = $("#tmpl-HeaderBar").render();
         var $e = $(html);
@@ -48,7 +46,7 @@ contact =  {};
 
     };
     // --------- /UI HeaderBar --------- //
-    contact.HeaderBar = HeaderBar;
+    contactApp.HeaderBar = HeaderBar;
 })(jQuery);
 
 (function ($) {
@@ -56,10 +54,8 @@ contact =  {};
     // --------- UI ContactHome --------- //
     function ContactHome() {
     }
-
-    ;
     ContactHome.prototype.create = function (data, config) {
-        var html = $("#tmpl-ContactHome").render();
+       var html = $("#tmpl-ContactHome").render();
         var $e = $(html);
         return $e;
     };
@@ -72,7 +68,7 @@ contact =  {};
 
     };
     // --------- /UI ContactHome --------- //
-    contact.ContactHome = ContactHome;
+    contactApp.ContactHome = ContactHome;
 })(jQuery);
 
 (function ($) {
@@ -81,25 +77,16 @@ contact =  {};
     function ContactList() {
     }
 
-    function refreshData() {
-        var data = [
-            {name:"test", id:1},
-            {name:"test", id:2},
-            {name:"test", id:3},
-            {name:"test", id:4},
-            {name:"test", id:5}
-        ];
-//        var html =  brite.dm.list("Contacts").done(function(contactList) {
-//            return   $("#tmpl-ContactList").render(contacts:contactList);
-//
-//        });
-        var html = $("#tmpl-ContactList").render({contacts:data});
-        var $e = $(html);
-        return $e;
-    }
 
     ContactList.prototype.create = function (data, config) {
-        return refreshData();
+        console.log("create");
+        var html;
+        brite.dm.list("Contact").done(function(contactList) {
+            console.log(contactList);
+            html =    $("#tmpl-ContactList").render({contacts:contactList});
+        });
+        var $e = $(html);
+        return $e;
     };
 
     ContactList.prototype.init = function (data, config) {
@@ -109,24 +96,78 @@ contact =  {};
     ContactList.prototype.postDisplay = function (data, config) {
          var $e = this.$element;
 
+        var showContacts = function() {
+            var html;
+            brite.dm.list("Contact").done(function(contactList) {
+                html =   $("#tmpl-ContactList-Part").render({contacts:contactList});
+
+            });
+            console.log("show contents");
+            console.log(html);
+            $e.find(".DataList").html(html);
+        }
+
+        showContacts();
+
          $e.delegate(".new","click",function(){
-             console.log("create");
-             var name = "test";
-             brite.dm.create("Contact", {
-                 name : name
-             }).done(function() {
-                     refreshData();
-                 });
+             $e.find("#CreateContact").html($("#tmpl-CreateContact").render());
+             $e.find("#CreateContact input").focus();
+             $e.find("#CreateContact").show();
+
          });
-         $e.delegate(".delete","click",function(){
-             console.log("delete");
-             brite.dm.remote("Contact", 1).done(function() {
-                     refreshData();
+
+         $e.delegate("#CreateContact .save","click",function(){
+             console.log("save");
+             var name = $e.find("#CreateContact input").val();
+             brite.dm.create("Contact", {name:name}).done(function() {
+                     brite.display("ContactList")
                  });
+             $e.find("#CreateContact").hide();
+             showContacts();
          });
+
+        $e.delegate(".star", "click", function(){
+            console.log(this);
+            $(this).toggleClass("on");
+            return false;
+
+        });
+        $e.delegate("li", "click", function(){
+            console.log("ul click");
+            $e.find("li").removeClass("selected");
+            $(this).toggleClass("selected");
+            return false;
+        });
+
+        $e.delegate("li", "dblclick", function(){
+            var $li = $(this);
+            $li.html($("#tmpl-CreateContact").render());
+            var name = $li.attr("data-obj_name");
+            var id = $li.attr("data-obj_id");
+            $li.find("input").val(name);
+            $li.find("input").focus();
+
+            $(this).delegate(".save", "click",function(){
+                console.log("update")
+                brite.dm.update("Contact",id, {name:$li.find("input").val()});
+                showContacts();
+            });
+            return false;
+        });
+
+        $e.delegate(".delete", "click", function() {
+            console.log("delete");
+            var id = $e.find("li.selected").attr("data-obj_id");
+            console.log(id);
+            brite.dm.remove("Contact", id).done(function() {
+                showContacts();
+            });
+        });
+
+
 
     };
     // --------- /UI ContactList --------- //
-    contact.ContactList = ContactList;
+    contactApp.ContactList = ContactList;
 })(jQuery);
 
